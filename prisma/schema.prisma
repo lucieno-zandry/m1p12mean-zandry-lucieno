@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String   @unique
+  password  String
+  phone     String?
+  role      Role
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isActive Boolean  @default(false)
+
+  clientAppointments   Appointment[] @relation("ClientAppointments")
+  mechanicAppointments Appointment[] @relation("MechanicAppointments")
+  sentMessages         Message[]     @relation("SentMessages")
+  receivedMessages     Message[]     @relation("ReceivedMessages")
+}
+
+model Appointment {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  date          DateTime
+  status        AppointmentStatus @default(PENDING)
+  serviceType   String
+  notes         String?
+  mechanicNotes String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  client     User   @relation("ClientAppointments", fields: [clientId], references: [id])
+  clientId   String @db.ObjectId
+
+  mechanic   User   @relation("MechanicAppointments", fields: [mechanicId], references: [id])
+  mechanicId String @db.ObjectId
+
+  messages   Message[]
+}
+
+model Message {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  content       String
+  sentAt        DateTime @default(now())
+  read          Boolean  @default(false)
+
+  sender        User     @relation("SentMessages", fields: [senderId], references: [id])
+  senderId      String   @db.ObjectId
+
+  receiver      User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  receiverId    String   @db.ObjectId
+
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  appointmentId String   @db.ObjectId
+}
+
+model Service {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  price Float?
+}
+
+enum Role {
+  CLIENT
+  MECHANIC
+  MANAGER
+}
+
+enum AppointmentStatus {
+  PENDING
+  IN_PROGRESS
+  DONE
+  CANCELLED
+}
