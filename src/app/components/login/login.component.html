@@ -1,0 +1,28 @@
+<form class="px-5" onsubmit="handlesubmit">
+  <div class="form-floating mb-3">
+    <input
+      type="email"
+      class="form-control"
+      name="email"
+      id="email"
+      placeholder="username@example.com"
+    />
+    <label for="email"><i class="fa fa-envelope"></i> Email</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input
+      type="password"
+      class="form-control"
+      name="password"
+      id="password"
+      placeholder="Your password"
+    />
+    <label for="password"><i class="fa fa-lock"></i> Password</label>
+  </div>
+
+  <button class="btn btn-primary d-block mx-auto" type="submit">
+    Se connecter
+  </button>
+
+  <p class="mt-3 text-center">Vous n'avez pas de compte ? <a routerLink="/auth/signup">Créez-en un</a>.</p>
+</form>
