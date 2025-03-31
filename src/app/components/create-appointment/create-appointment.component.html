@@ -1,0 +1,57 @@
+<form class="modal fade" id="appointment-modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+    role="dialog" aria-labelledby="modalTitleId" aria-hidden="true" [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleId">
+                    Prendre un rendez-vous
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="create-appointment-modal-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-floating mb-3 col-10">
+                    <input type="time" class="form-control" [class.is-invalid]="validationMessages().time" name="time"
+                        id="time" placeholder="Heure du rendez-vous" formControlName="time" autocomplete="time" required
+                        min="08:00" max="17:00" />
+                    <label for="time"><i class="fa fa-clock"></i> Heure</label>
+
+                    @if (validationMessages().time) {
+                    <div class="invalid-feedback">
+                        {{validationMessages().time}}
+                    </div>
+                    }
+                </div>
+
+                <div class="form-floating mb-3 col-10">
+                    <select formControlName="service" class="form-select" name="service"  id="service" placeholder="Type de service" [class.is-invalid]="validationMessages().service">
+                        <option value="VIDANGE" selected>Vidange</option>
+                        <option value="ENTRETIEN">Entretien</option>
+                        <option value="LAVAGE">Lavage</option>
+                        <option value="REPARATION">Reparation</option>
+                    </select>
+                    <label for="service"><i class="fa fa-list"></i> Type de service</label>
+
+                    @if (validationMessages().service) {
+                    <div class="invalid-feedback">
+                        {{validationMessages().service}}
+                    </div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="notes" class="form-label">notes</label>
+                    <textarea class="form-control" name="notes" id="notes" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                    Close
+                </button>
+
+                <app-button type="submit" variant="primary" className="btn-sm" [disabled]="!appointmentForm.valid" [isLoading]="state.isLoading">
+                    Save
+                </app-button>
+            </div>
+        </div>
+    </div>
+</form>

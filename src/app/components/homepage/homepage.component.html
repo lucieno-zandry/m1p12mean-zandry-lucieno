@@ -1,0 +1,7 @@
+<p>homepage works!</p>
+
+@if(auth.user()) {
+    <app-authorized-homepage></app-authorized-homepage>
+} @else {
+    <app-unauthorized-homepage></app-unauthorized-homepage>
+}

@@ -1,0 +1,16 @@
+<aside class="px-5 pt-3 text-center bg-dark text-light h-100">
+    <h5>GarApp</h5>
+
+    <nav class="navbar navbar-expand navbar-light bg-light mt-3 rounded px-4">
+        <ul class="nav navbar-nav flex-column">
+             <li class="nav-item">
+                <a [class]="`nav-link ${currentUrl === '/dashboard' && 'active'}`" routerLink="/dashboard"><i class="fa fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item">
+                <a [class]="`nav-link ${currentUrl === '/dashboard/appointments' && 'active'}`"
+                    routerLink="/dashboard/appointments" aria-current="page"><i class="fa fa-stream"></i> Appointments </a>
+            </li>
+           
+        </ul>
+    </nav>
+</aside>

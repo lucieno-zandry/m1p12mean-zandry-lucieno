@@ -1,45 +1,52 @@
-<form class="px-5">
-  <div class="form-floating mb-3">
-    <input
-      type="text"
-      class="form-control"
-      name="name"
-      id="name"
-      placeholder="Your username"
-    />
-    <label for="name"><i class="fa fa-user"></i> Name*</label>
+<form class="px-5 d-flex flex-column align-items-center" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+  <div class="form-floating mb-3 col-10">
+    <input type="email" [class]="`form-control ${validationMessages().email && 'is-invalid'}`" name="email" id="email"
+      placeholder="username@example.com" formControlName="email" autocomplete="email" required focus />
+    <label for="email"><i class="fa fa-envelope"></i> Email</label>
+
+    @if (validationMessages().email) {
+    <div class="invalid-feedback">
+      {{validationMessages().email}}
+    </div>
+    }
+
   </div>
-  <div class="form-floating mb-3">
-    <input
-      type="email"
-      class="form-control"
-      name="email"
-      id="email"
-      placeholder="username@example.com"
-    />
-    <label for="email"><i class="fa fa-envelope"></i> Email*</label>
+
+  <div class="form-floating mb-3 col-10">
+    <input type="password" [class]="`form-control ${validationMessages().password && 'is-invalid'}`" name="password"
+      id="password" placeholder="Your password" formControlName="password" autocomplete="new-password" required />
+    <label for="password"><i class="fa fa-lock"></i> Password</label>
+
+    @if (validationMessages().password) {
+    <div class="invalid-feedback">
+      {{validationMessages().password}}
+    </div>
+    }
   </div>
-  <div class="form-floating mb-3">
-    <input
-      type="password"
-      class="form-control"
-      name="password"
-      id="password"
-      placeholder="Your password"
-    />
-    <label for="password"><i class="fa fa-lock"></i> Password*</label>
+
+  <div class="form-floating mb-3 col-10">
+    <input type="text" [class]="`form-control ${validationMessages().password && 'is-invalid'}`" name="name" id="name"
+      placeholder="username" formControlName="name" autocomplete="username" required />
+    <label for="name"><i class="fa fa-user"></i> Name</label>
+
+    @if (validationMessages().name) {
+    <div class="invalid-feedback">
+      {{validationMessages().name}}
+    </div>
+    }
   </div>
-  <div class="mb-3">
-    <select class="form-select form-select-sm" name="role" id="role">
-      <option selected value="CLIENT">Client</option>
-      <option value="MECHANIC">Mécanicien</option>
-      <option value="MANAGER">Manager</option>
+
+  <div class="mb-3 col-10">
+    <select class="form-select" name="Role" id="role" formControlName="role">
+      @for (role of roles; track $index) {
+      <option [selected]="signupForm.value.role === role" [value]="role">{{ role.toLowerCase() }}</option>
+      }
     </select>
   </div>
 
-  <button class="btn btn-secondary d-block mx-auto disabled" type="submit">
-    S'inscrire
-  </button>
+  <app-button variant="secondary" type="submit" [isLoading]="state.isLoading" [disabled]="!signupForm.valid">
+    Se connecter
+  </app-button>
 
   <p class="mt-3 text-center">
     Vous avez déjà un compte ? <a routerLink="/auth/login">Connectez-vous</a>.

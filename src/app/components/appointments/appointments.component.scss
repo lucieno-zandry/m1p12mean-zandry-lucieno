@@ -1,0 +1,11 @@
+.floating-action {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+.empty-image {
+    background: url("../../assets/images/out-of-stock.png");
+    aspect-ratio: 1;
+    background-size: contain;
+}

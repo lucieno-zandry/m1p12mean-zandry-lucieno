@@ -1,0 +1,15 @@
+<div class="container mt-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <button class="btn btn-outline-secondary" (click)="previousWeek()">Previous</button>
+        <h4>Weekly Calendar</h4>
+        <button class="btn btn-outline-secondary" (click)="nextWeek()">Next</button>
+    </div>
+
+    <div class="d-flex justify-content-center gap-4 bg-light p-2 rounded flex-wrap">
+        @for (date of currentWeek; track $index) {
+        <button class="btn btn-outline-secondary" [class.disabled]="$index >= 5" [class.active]="selectedDate().toISOString() === date.toISOString()" (click)="selectDate(date)">
+            {{ date.toDateString() }}
+        </button>
+        }
+    </div>
+</div>
