@@ -6,13 +6,8 @@ import loginRequest from "../requests/loginRequest.js";
 
 const router = Router();
 
-// Signup route
 router.post("/signup", userCreateRequest, authController.signup);
-
-// Login
 router.post("/login", loginRequest, authController.login);
-
-// Profile
-router.get("/profile", authenticateToken, authController.profile);
+router.get("/user", authenticateToken, authController.profile);
 
 export default router;

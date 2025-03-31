@@ -9,11 +9,18 @@ export default {
       return res.status(422).json({ errors: errors.array() });
     }
 
-    const { serviceType, notes, mechanicId } = req.body;
+    let { serviceType, notes, mechanicId = null } = req.body;
     const date = new Date(req.body.date);
     const clientId = req.user.id;
 
     try {
+      if (!mechanicId) {
+        const mechanic = await prisma.user.findFirst({
+          where: { role: "MECHANIC" },
+        });
+        if (mechanic) mechanicId = mechanic.id;
+      }
+
       // Check if this slot already has an appointment
       const existing = await prisma.appointment.findFirst({
         where: {
@@ -51,12 +58,15 @@ export default {
         where: {
           clientId: userId,
         },
+        include: {
+          mechanic: true,
+        },
         orderBy: {
           date: "asc",
         },
       });
 
-      res.status(200).json(appointments);
+      res.status(200).json({ appointments });
     } catch (error) {
       console.error("Get appointments error:", error);
       res.status(500).json({ message: "Something went wrong" });

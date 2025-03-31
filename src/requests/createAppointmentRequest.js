@@ -11,5 +11,5 @@ export default [
 
   body("notes").optional().isString().withMessage("Notes must be a string"),
 
-  body("mechanicId").isString(),
+  body("mechanicId").optional().isString(),
 ];

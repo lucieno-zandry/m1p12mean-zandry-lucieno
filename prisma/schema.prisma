@@ -43,8 +43,8 @@ model Appointment {
   client     User   @relation("ClientAppointments", fields: [clientId], references: [id])
   clientId   String @db.ObjectId
 
-  mechanic   User   @relation("MechanicAppointments", fields: [mechanicId], references: [id])
-  mechanicId String @db.ObjectId
+  mechanic   User?   @relation("MechanicAppointments", fields: [mechanicId], references: [id])
+  mechanicId String? @db.ObjectId
 
   messages   Message[]
 }

@@ -11,7 +11,7 @@ export default {
       return res.status(422).json({ errors: errors.array() });
     }
 
-    const { email, password, name, role = 'CLIENT' } = req.body;
+    const { email, password, name, role = "CLIENT" } = req.body;
 
     try {
       // Check if user already exists
@@ -70,6 +70,8 @@ export default {
         return res.status(404).json({ message: "User not found" });
       }
 
+      delete user.password;
+      
       res.status(200).json({ user });
     } catch (error) {
       console.error(error);
