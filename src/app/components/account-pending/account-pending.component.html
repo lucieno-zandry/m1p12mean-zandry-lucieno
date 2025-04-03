@@ -1,0 +1,54 @@
+<!-- account-pending.component.html -->
+<div class="pending-container">
+    <div class="card pending-card shadow">
+        <!-- Title and Content -->
+        <div class="card-body text-center">
+            <h2 class="card-title mb-3">Account Pending Approval</h2>
+
+            <!-- If you have the username, display personalized message -->
+            @if(user?.name){
+            <p class="card-text lead">
+                Hello <strong>{{ user!.name }}</strong>, your account is awaiting approval.
+            </p>
+            }
+
+            <!-- Default message if no username -->
+            @if(!user?.name){
+            <p class="card-text lead">
+                Your account is awaiting approval.
+            </p>
+            }
+
+            <p class="card-text">
+                Thank you for registering with AutoCare Garage. Our admin team is currently reviewing
+                your account request. You will receive an email notification once your account has been validated.
+            </p>
+
+            <div class="email-notification mt-4">
+                <div class="d-flex align-items-center justify-content-center">
+                    <i class="bi bi-envelope-check me-2 text-primary"></i>
+                    <p class="mb-0">We'll send a notification to your email address when approved.</p>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a class="btn btn-outline-secondary me-2" routerLink="/">
+                    <i class="bi bi-house-door me-1"></i> Return to Home
+                </a>
+                <a class="btn btn-primary" href="mailto:support@autocaregarage.com">
+                    <i class="bi bi-question-circle me-1"></i> Contact Support
+                </a>
+            </div>
+        </div>
+
+        <!-- Status Indicator -->
+        <div class="card-footer bg-transparent border-top-0 text-center">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="spinner-grow spinner-grow-sm text-primary me-2" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <span>Account status: <strong>Pending Approval</strong></span>
+            </div>
+        </div>
+    </div>
+</div>

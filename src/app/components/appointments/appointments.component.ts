@@ -6,6 +6,7 @@ import { CreateAppointmentComponent } from "../create-appointment/create-appoint
 import { Appointment } from '../../utils/types/models';
 import { DeleteAppointmentComponent } from '../delete-appointment/delete-appointment.component';
 import { deleteAppointment } from '../../utils/api/actions';
+import { Auth } from '../../utils/states/auth';
 
 @Component({
   selector: 'app-appointments',
@@ -21,6 +22,14 @@ export class AppointmentsComponent {
   selectedDateIsWeekend = computed(() => appDate.dateIsWeekend(this.selectedDate()))
   editingAppointment = signal<Appointment | null>(null);
   deletingAppointment = signal<Appointment | null>(null);
+  auth = inject(Auth);
+  getTime = appDate.getTime
+
+  appointmentRefreshAction() {
+    if (this.auth.user()!.role === 'MANAGER') return this.appointments.refreshAllAppointments();
+    this.appointments.refreshAppointments();
+  }
+
   state = {
     isLoading: false,
   }
@@ -34,7 +43,7 @@ export class AppointmentsComponent {
   }
 
   ngOnInit() {
-    this.appointments.refreshAppointments();
+    this.appointmentRefreshAction();
   }
 
   onDelete() {
@@ -43,7 +52,7 @@ export class AppointmentsComponent {
     deleteAppointment(this.deletingAppointment()!.id)
       .then(() => {
         document.getElementById('appointment-delete-modal-close')?.click();
-        this.appointments.refreshAppointments();
+        this.appointmentRefreshAction();
         this.deletingAppointment.set(null);
       })
       .catch((error) => {

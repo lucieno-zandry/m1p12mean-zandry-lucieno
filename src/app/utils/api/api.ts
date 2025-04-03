@@ -1,3 +1,6 @@
+import { inject } from "@angular/core";
+import { Router } from "@angular/router";
+
 const API_URL = "http://localhost:3000/api";
 
 const buildUrl = (uri: string) => {
@@ -12,6 +15,15 @@ const buildHeaders = () => {
     }
 }
 
+const getActionUrl = (action: string) => {
+    return '/auth/pending';
+}
+
+const navigateByUrl = (url: string) => {
+    location.href = url;
+}
+
+
 export const get = async <T>(uri: string): Promise<T> => {
     const response = await fetch(buildUrl(uri), {
         headers: buildHeaders()
@@ -19,7 +31,14 @@ export const get = async <T>(uri: string): Promise<T> => {
 
     const data = await response.json();
 
-    if (!response.ok) throw data;
+    if (!response.ok) {
+        if (response.status === 403 && data.action) {
+            navigateByUrl(getActionUrl(data.action));
+        }
+
+        throw data;
+    };
+
     return data;
 }
 
@@ -32,7 +51,14 @@ export const post = async <T>(uri: string, payload: unknown): Promise<T> => {
 
     const data = await response.json();
 
-    if (!response.ok) throw data;
+    if (!response.ok) {
+        if (response.status === 403 && data.action) {
+            navigateByUrl(getActionUrl(data.action));
+        }
+
+        throw data;
+    };
+
     return data;
 }
 
@@ -45,7 +71,14 @@ export const put = async <T>(uri: string, payload: unknown): Promise<T> => {
 
     const data = await response.json();
 
-    if (!response.ok) throw data;
+    if (!response.ok) {
+        if (response.status === 403 && data.action) {
+            navigateByUrl(getActionUrl(data.action));
+        }
+
+        throw data;
+    };
+
     return data;
 }
 
@@ -58,7 +91,14 @@ export const destroy = async <T>(uri: string, payload: unknown = {}): Promise<T>
 
     const data = await response.json();
 
-    if (!response.ok) throw data;
+    if (!response.ok) {
+        if (response.status === 403 && data.action) {
+            navigateByUrl(getActionUrl(data.action));
+        }
+
+        throw data;
+    };
+
     return data;
 }
 

@@ -1,0 +1,45 @@
+/* account-pending.component.css */
+.pending-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+  
+  .pending-card {
+    max-width: 600px;
+    width: 100%;
+    border-radius: 15px;
+    border: none;
+    overflow: hidden;
+    padding: 2rem;
+  }
+  
+  .pending-image {
+    width: 200px;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .email-notification {
+    background-color: rgba(13, 110, 253, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+  }
+  
+  /* Pulsating animation for spinner */
+  .spinner-grow {
+    animation: spinner-grow 1.5s ease-in-out infinite;
+  }
+  
+  @media (max-width: 768px) {
+    .pending-card {
+      padding: 1.5rem;
+    }
+    
+    .pending-image {
+      width: 150px;
+    }
+  }

@@ -20,7 +20,7 @@ export type Appointment = {
     mechanicNotes: string,
     createdAt: string,
     updatedAt: string,
-    client: User,
+    client?: User,
     clientId: string,
     mechanic?: User,
     mechanicId?: string,

@@ -9,6 +9,7 @@ import { GuestGuardComponent } from './components/guest-guard/guest-guard.compon
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AppointmentsComponent } from './components/appointments/appointments.component';
 import { AuthorizedHomepageComponent } from './components/authorized-homepage/authorized-homepage.component';
+import { AccountPendingComponent } from './components/account-pending/account-pending.component';
 
 export const routes: Routes = [
   {
@@ -19,6 +20,13 @@ export const routes: Routes = [
     path: '',
     component: AuthGuardComponent,
     children: [
+      {
+        path: 'auth',
+        component: AuthComponent,
+        children: [
+          { path: 'pending', component: AccountPendingComponent }
+        ]
+      },
       {
         path: 'dashboard',
         component: DashboardComponent,

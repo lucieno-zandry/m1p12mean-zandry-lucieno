@@ -17,6 +17,10 @@ export const getAppointments = () => {
     return api.get<{ appointments: Appointment[] }>('/appointment/my');
 }
 
+export const getAllAppointments = () => {
+    return api.get<{ appointments: Appointment[] }>('/appointment/all');
+}
+
 export const createAppointment = (payload: { date: string | null, notes: string | null, serviceType: string | null }) => {
     return api.post<{ appointment: Appointment }>('/appointment/create', payload);
 }

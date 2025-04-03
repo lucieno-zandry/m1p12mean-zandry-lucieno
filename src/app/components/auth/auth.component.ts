@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LoginComponent } from '../login/login.component';
 import { RouterOutlet } from '@angular/router';
+import { Auth } from '../../utils/states/auth';
 
 @Component({
   templateUrl: './auth.component.html',
@@ -8,4 +9,6 @@ import { RouterOutlet } from '@angular/router';
   selector: 'auth-component',
   imports: [RouterOutlet],
 })
-export class AuthComponent {}
+export class AuthComponent {
+  user = inject(Auth).user();
+}

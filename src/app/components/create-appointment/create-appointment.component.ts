@@ -68,6 +68,11 @@ export class CreateAppointmentComponent {
     }
   }
 
+  appointmentRefreshAction() {
+    if (this.auth.user()!.role === 'MANAGER') return this.appointments.refreshAllAppointments();
+    this.appointments.refreshAppointments();
+  }
+
   getValidationMessages = () => {
     const errors: AppointmentValidationMessages = {};
     if (this.time?.hasError('required')) {
@@ -113,7 +118,7 @@ export class CreateAppointmentComponent {
     apiAction(payload)
       .then(() => {
         this.appointments.appointments.update(() => null);
-        this.appointments.refreshAppointments();
+        this.appointmentRefreshAction();
         document.getElementById('create-appointment-modal-close')?.click();
         if (this.appointment()) this.appointment.update(() => null);
       })
