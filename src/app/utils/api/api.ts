@@ -36,7 +36,35 @@ export const post = async <T>(uri: string, payload: unknown): Promise<T> => {
     return data;
 }
 
+export const put = async <T>(uri: string, payload: unknown): Promise<T> => {
+    const response = await fetch(buildUrl(uri), {
+        method: "PUT",
+        body: JSON.stringify(payload),
+        headers: buildHeaders()
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw data;
+    return data;
+}
+
+export const destroy = async <T>(uri: string, payload: unknown = {}): Promise<T> => {
+    const response = await fetch(buildUrl(uri), {
+        method: "DELETE",
+        body: JSON.stringify(payload),
+        headers: buildHeaders()
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw data;
+    return data;
+}
+
 export default {
     get,
-    post
+    post,
+    put,
+    delete: destroy
 }

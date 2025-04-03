@@ -25,9 +25,18 @@ export const toPayloadFormat = (date: Date, time: string): string => {
     return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${time}:00`;
 }
 
+export const getTime = (datestring: string) => {
+    const date = new Date(datestring);
+    const hours = date.getHours().toString();
+    const minutes = date.getMinutes().toString();
+
+    return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`
+}
+
 export default {
     config,
     stringToIso,
     dateIsWeekend,
-    toPayloadFormat
+    toPayloadFormat,
+    getTime
 }

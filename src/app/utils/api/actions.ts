@@ -17,6 +17,14 @@ export const getAppointments = () => {
     return api.get<{ appointments: Appointment[] }>('/appointment/my');
 }
 
-export const createAppointment = (payload: { date: string | null, notes: string | null, serviceType: string | null}) => {
+export const createAppointment = (payload: { date: string | null, notes: string | null, serviceType: string | null }) => {
     return api.post<{ appointment: Appointment }>('/appointment/create', payload);
+}
+
+export const updateAppointment = ({ id, ...payload }: { date?: string | null, notes?: string | null, serviceType?: string | null, id?: string }) => {
+    return api.put<{ appointment: Appointment }>(`/appointment/update/${id}`, payload)
+}
+
+export const deleteAppointment = (id: string) => {
+    return api.delete(`/appointment/delete/${id}`)
 }

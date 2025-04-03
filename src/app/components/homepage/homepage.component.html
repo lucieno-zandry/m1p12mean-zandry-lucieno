@@ -1,7 +1,155 @@
-<p>homepage works!</p>
+<div class="garage-homepage">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light px-5">
+        <a class="navbar-brand" routerLink="/">AutoCare</a>
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+            data-bs-target="#homepage-collapsible-nav" aria-controls="homepage-collapsible-nav" aria-expanded="false"
+            aria-label="Toggle navigation"></button>
+        <div class="collapse navbar-collapse" id="homepage-collapsible-nav">
+            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+            </ul>
+            @if(!auth.user()){
+            <a routerLink="/auth/login" class="btn btn-secondary btn-sm">Log in</a>
+            } @else {
+            <a routerLink="/dashboard" class="btn btn-primary btn-sm">Dashboard</a>
+            }
+        </div>
+    </nav>
 
-@if(auth.user()) {
-    <app-authorized-homepage></app-authorized-homepage>
-} @else {
-    <app-unauthorized-homepage></app-unauthorized-homepage>
-}
+    <section class="hero text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="display-4 fw-bold">AutoCare Garage</h1>
+                    <p class="lead">Expert mechanics, honest service, and convenient appointments.</p>
+                    <p>Your vehicle deserves the best care. Schedule an appointment today and experience professional
+                        service that keeps your car running smoothly.</p>
+                    <a [routerLink]="auth.user() ? '/dashboard/appointments' : '/auth/login'"
+                        class="btn btn-light btn-lg mt-3">Book Appointment</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Our Services</h2>
+            <div class="row">
+                @for (service of services; track $index) {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ service.name }}</h5>
+                            <p class="card-text">Professional {{ service.name.toLowerCase() }} service by certified
+                                mechanics.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="bi bi-clock me-2"></i>Duration: {{ service.duration }}</li>
+                                <li><i class="bi bi-tag me-2"></i>Starting at {{ service.price }}</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <a [routerLink]="auth.user() ? '/dashboard/appointments' : '/auth/login'"
+                                class="btn btn-outline-primary">Book This Service</a>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Why Choose AutoCare Garage?</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <i class="bi bi-tools display-4 text-primary"></i>
+                        <h4 class="mt-3">Certified Mechanics</h4>
+                        <p>Our team consists of ASE-certified mechanics with years of experience in all types of vehicle
+                            repairs.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <i class="bi bi-calendar-check display-4 text-primary"></i>
+                        <h4 class="mt-3">Easy Scheduling</h4>
+                        <p>Book your appointment online anytime, anywhere. No phone calls needed.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <i class="bi bi-shield-check display-4 text-primary"></i>
+                        <h4 class="mt-3">Warranty</h4>
+                        <p>All our repairs come with a 12-month/12,000-mile warranty for your peace of mind.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">What Our Customers Say</h2>
+            <div class="row">
+                @for (testimonial of testimonials; track $index) {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <h5 class="card-title">{{ testimonial.name }}</h5>
+                                <div class="text-warning">
+                                    @for (star of [].constructor(testimonial.rating); track $index) {
+                                    <i class="fa fa-star"></i>
+                                    }
+                                </div>
+                            </div>
+                            <p class="card-text">{{ testimonial.text }}</p>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info Footer -->
+    <footer class="py-4 bg-dark text-white mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5>AutoCare Garage</h5>
+                    <address class="mb-0">
+                        123 Mechanic Street<br>
+                        Automotive City, AC 12345<br>
+                        <i class="bi bi-telephone me-2"></i>(123) 456-7890<br>
+                        <i class="bi bi-envelope me-2"></i>{{ 'info@autocaregarage.com' }}
+                    </address>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5>Business Hours</h5>
+                    <ul class="list-unstyled">
+                        <li>Monday - Friday: 8:00 AM - 6:00 PM</li>
+                        <li>Saturday: 9:00 AM - 3:00 PM</li>
+                        <li>Sunday: Closed</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook fs-4"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter-x fs-4"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-yelp fs-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <small>&copy; 2025 AutoCare Garage. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+</div>

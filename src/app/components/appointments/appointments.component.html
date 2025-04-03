@@ -13,13 +13,14 @@
         <p class="mt-3">Aucun rendez-vous prévu pour cette date.</p>
     </div>
     } @else {
-    <div class="table-responsive px-2">
+    <div class="table-responsive px-2 text-center">
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Statut</th>
-                    <th scope="col">Service</th>
-                    <th scope="col">Mécanicien</th>
+                    <th class="col">Statut</th>
+                    <th class="col">Service</th>
+                    <th class="col">Mécanicien</th>
+                    <th class="col-3"></th>
                 </tr>
             </thead>
             <tbody>
@@ -28,16 +29,31 @@
                     <td scope="row">{{appointment.status}}</td>
                     <td>{{ appointment.serviceType }}</td>
                     <td>{{ appointment.mechanic?.name || 'Inconnu' }}</td>
+                    <td class="d-flex gap-2">
+                        @if(date(appointment.date) > now){
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#appointment-modal" (click)="setEditingAppointment(appointment)">
+                            <i class="fa fa-pen"></i> modifier
+                        </button>
+                        }
+                        <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#delete-appointment-modal"
+                            (click)="deletingAppointment.set(appointment)">
+                            <i class="fa fa-trash"></i> supprimer
+                        </button>
+                    </td>
                 </tr>}
             </tbody>
         </table>
     </div>
     }
     @if(selectedDate() > now && !selectedDateIsWeekend()){
-    <button class="btn btn-outline-dark btn-sm floating-action" data-bs-toggle="modal" data-bs-target="#appointment-modal"
-        type="button">
+    <button class="btn btn-outline-dark btn-sm floating-action" data-bs-toggle="modal"
+        data-bs-target="#appointment-modal" type="button" (click)="setEditingAppointment(null)">
         <i class="fa fa-plus"></i> Ajouter
     </button>
     }
-    <app-create-appointment [selectedDate]="selectedDate()"></app-create-appointment>
+    <app-create-appointment [selectedDate]="selectedDate()"
+        [(appointment)]="editingAppointment"></app-create-appointment>
+    <app-delete-appointment [isLoading]="state.isLoading" (onDelete)="onDelete()"></app-delete-appointment>
 </div>

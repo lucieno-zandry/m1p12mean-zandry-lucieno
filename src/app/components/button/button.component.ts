@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 export type ButtonProps = {
   variant?: 'primary' | 'secondary' | 'danger' | 'warning' | 'info' | 'light' | 'dark' | 'success' |
@@ -21,4 +21,5 @@ export class ButtonComponent {
   isLoading = input(false)
   type = input<ButtonProps['type']>('button')
   disabled=input(false)
+  click = output();
 }

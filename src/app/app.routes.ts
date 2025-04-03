@@ -8,6 +8,7 @@ import { AuthGuardComponent } from './components/auth-guard/auth-guard.component
 import { GuestGuardComponent } from './components/guest-guard/guest-guard.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AppointmentsComponent } from './components/appointments/appointments.component';
+import { AuthorizedHomepageComponent } from './components/authorized-homepage/authorized-homepage.component';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,10 @@ export const routes: Routes = [
           {
             path: 'appointments',
             component: AppointmentsComponent
+          },
+          {
+            path: '',
+            component: AuthorizedHomepageComponent
           }
         ]
       }

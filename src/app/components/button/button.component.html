@@ -1,7 +1,8 @@
 <button 
 [class]="`btn ${variant() && 'btn-' + variant()} ${className()}`" 
 [type]="type()"
-[disabled]="disabled() || isLoading()">
+[disabled]="disabled() || isLoading()"
+(click)="click.emit()">
     <ng-content></ng-content> @if (isLoading()) {
     <span class="spinner spinner-border spinner-border-sm"></span>
     } 

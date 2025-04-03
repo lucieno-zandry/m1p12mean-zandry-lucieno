@@ -1,0 +1,11 @@
+.card-decorative-image {
+    background: url(../../assets/images/bus-stop.png);
+    width: 25%;
+    aspect-ratio: 1;
+    background-size: contain;
+    float: inline-end;
+}
+
+.card {
+    position: relative;
+}
