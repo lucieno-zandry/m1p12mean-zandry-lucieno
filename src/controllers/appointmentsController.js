@@ -160,6 +160,8 @@ export default {
     const appointmentId = req.params.id;
     const { status = "", ...data } = req.body;
 
+    if (data.date) data.date = new Date(data.date);
+
     try {
       let appointment = await prisma.appointment.findUnique({
         where: { id: appointmentId },
@@ -182,7 +184,20 @@ export default {
 
       res.json({ appointment });
     } catch (e) {
+      console.log(e);
       res.status(500).json({ message: "Internal server error!" });
+    }
+  },
+  destroy: async (req, res) => {
+    const { id = null } = req.params;
+    if (!id) return;
+
+    try {
+      const deleted = await prisma.appointment.delete({ where: { id } });
+      res.json({ deleted });
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({ message: "Internal Server Error." });
     }
   },
 };

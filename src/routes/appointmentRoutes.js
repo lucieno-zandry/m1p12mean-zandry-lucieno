@@ -13,8 +13,9 @@ const router = Router();
 router.use(authenticateToken);
 
 router.post("/create", createAppointmentRequest, appointmentsController.store);
-router.put("/update/:id", updateAppointmentRequest, appointmentsController.store);
+router.put("/update/:id", updateAppointmentRequest, appointmentsController.update);
 router.get("/my", appointmentsController.index);
+router.delete("/delete/:id", appointmentsController.destroy);
 
 router.use(userIsMechanicOrManager);
 router.use(userIsActive);
