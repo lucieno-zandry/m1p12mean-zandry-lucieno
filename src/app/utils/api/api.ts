@@ -15,8 +15,16 @@ const buildHeaders = () => {
     }
 }
 
-const getActionUrl = (action: string) => {
-    return '/auth/pending';
+const getActionUrl = (action: string): string | null => {
+    if (action === 'LOGIN' && !['/auth/login', '/auth/signup', '/'].includes(location.pathname)) {
+        return '/auth/login';
+    }
+
+    if (action === 'ACTIVATE') {
+        return '/auth/pending';
+    }
+
+    return null;
 }
 
 const navigateByUrl = (url: string) => {
@@ -33,7 +41,8 @@ export const get = async <T>(uri: string): Promise<T> => {
 
     if (!response.ok) {
         if (response.status === 403 && data.action) {
-            navigateByUrl(getActionUrl(data.action));
+            const actionUrl = getActionUrl(data.action)
+            actionUrl && navigateByUrl(actionUrl);
         }
 
         throw data;
@@ -53,7 +62,8 @@ export const post = async <T>(uri: string, payload: unknown): Promise<T> => {
 
     if (!response.ok) {
         if (response.status === 403 && data.action) {
-            navigateByUrl(getActionUrl(data.action));
+            const actionUrl = getActionUrl(data.action)
+            actionUrl && navigateByUrl(actionUrl);
         }
 
         throw data;
@@ -73,7 +83,8 @@ export const put = async <T>(uri: string, payload: unknown): Promise<T> => {
 
     if (!response.ok) {
         if (response.status === 403 && data.action) {
-            navigateByUrl(getActionUrl(data.action));
+            const actionUrl = getActionUrl(data.action)
+            actionUrl && navigateByUrl(actionUrl);
         }
 
         throw data;
@@ -93,7 +104,8 @@ export const destroy = async <T>(uri: string, payload: unknown = {}): Promise<T>
 
     if (!response.ok) {
         if (response.status === 403 && data.action) {
-            navigateByUrl(getActionUrl(data.action));
+            const actionUrl = getActionUrl(data.action)
+            actionUrl && navigateByUrl(actionUrl);
         }
 
         throw data;

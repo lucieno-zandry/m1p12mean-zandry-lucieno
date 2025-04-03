@@ -1,6 +1,6 @@
 import { Injectable, signal } from "@angular/core";
 import { Appointment } from "../types/models";
-import { getAllAppointments, getAppointments } from "../api/actions";
+import { getAllAppointments, getAppointments, nearestAppointment } from "../api/actions";
 import appDate from "../functions/appDate";
 
 type AppointmentsState = { [key: string]: Appointment[] | undefined }
@@ -8,6 +8,19 @@ type AppointmentsState = { [key: string]: Appointment[] | undefined }
 @Injectable({ providedIn: 'root' })
 export class Appointments {
     appointments = signal<AppointmentsState | null>(null);
+    nearestAppointment = signal<Appointment | null | undefined>(undefined);
+
+    refreshNearestAppointment() {
+        nearestAppointment()
+            .then((response) => {
+                this.nearestAppointment.set(response.appointment);
+            })
+            .catch(() => {
+                this.nearestAppointment.set(null);
+            })
+
+    }
+
     refreshAppointments() {
         getAppointments()
             .then(response => {

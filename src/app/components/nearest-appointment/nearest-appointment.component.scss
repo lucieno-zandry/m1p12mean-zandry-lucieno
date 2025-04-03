@@ -1,0 +1,42 @@
+/* nearest-appointment.component.scss */
+:host {
+    display: block;
+    height: 100%;
+  }
+  
+  .card {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+    }
+  }
+  
+  .card-header {
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+  }
+  
+  .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.4em 0.7em;
+    border-radius: 30px;
+  }
+  
+  .rounded-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+  }

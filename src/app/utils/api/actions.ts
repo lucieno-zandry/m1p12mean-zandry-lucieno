@@ -32,3 +32,7 @@ export const updateAppointment = ({ id, ...payload }: { date?: string | null, no
 export const deleteAppointment = (id: string) => {
     return api.delete(`/appointment/delete/${id}`)
 }
+
+export const nearestAppointment = () => {
+    return api.get<{ appointment: Appointment | null }>('/appointment/nearest');
+}

@@ -1,0 +1,75 @@
+@if(appointments.nearestAppointment() === undefined){
+<div class="card shadow-sm border-0 h-100">
+    <div class="card-body d-flex justify-content-center align-items-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Chargement...</span>
+        </div>
+    </div>
+</div>
+}
+
+@if(appointments.nearestAppointment() === null){
+<div class="card shadow-sm border-0 h-100">
+    <div class="card-body">
+        <div class="alert alert-info mb-0" role="alert">
+            Aucun prochain rendez-vous
+        </div>
+    </div>
+</div>
+}
+
+@if(appointments.nearestAppointment()){
+<div class="card shadow-sm border-0 h-100">
+    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Prochain rendez-vous</h5>
+        <span class="badge {{ getStatusClass(appointments.nearestAppointment()!.status) }}">{{
+            appointments.nearestAppointment()!.status }}</span>
+    </div>
+
+    <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted">{{ appointments.nearestAppointment()!.serviceType }}</h6>
+
+        <div class="mb-3">
+            <p class="card-text fw-bold fs-5">
+                <i class="bi bi-calendar-event me-2"></i>
+                {{ formatDate(appointments.nearestAppointment()!.date) }}
+            </p>
+        </div>
+
+        <div class="mb-3">
+            @if (appointments.nearestAppointment()!.mechanic) {
+            <div class="d-flex align-items-center mb-2 gap-2">
+                <div>Mécanicien : </div>
+                <div class="bg-primary rounded-circle text-white d-flex align-items-center justify-content-center"
+                    style="width: 32px; height: 32px;">
+                    {{ appointments.nearestAppointment()!.mechanic?.name?.charAt(0) }}
+                </div>
+                <div>
+                    <p class="mb-0">{{ appointments.nearestAppointment()!.mechanic?.name }}</p>
+                </div>
+            </div>
+            }
+
+            @if(appointments.nearestAppointment()!.client && auth.user()!.role === 'MANAGER'){
+            <div class="d-flex align-items-center gap-2">
+                <div>Client : </div>
+                <div class="bg-secondary rounded-circle text-white d-flex align-items-center justify-content-center"
+                    style="width: 32px; height: 32px;">
+                    {{ appointments.nearestAppointment()!.client?.name?.charAt(0) }}
+                </div>
+                <div>
+                    <p class="mb-0">{{ appointments.nearestAppointment()!.client?.name }}</p>
+                </div>
+            </div>
+            }
+        </div>
+
+        @if (appointments.nearestAppointment()?.notes) {
+        <div class="mt-auto">
+            <small class="text-muted">Notes:</small>
+            <p class="card-text small">{{ appointments.nearestAppointment()!.notes }}</p>
+        </div>
+        }
+    </div>
+</div>
+}
