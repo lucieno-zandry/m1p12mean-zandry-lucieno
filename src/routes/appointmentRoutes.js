@@ -13,9 +13,14 @@ const router = Router();
 router.use(authenticateToken);
 
 router.post("/create", createAppointmentRequest, appointmentsController.store);
-router.put("/update/:id", updateAppointmentRequest, appointmentsController.update);
+router.put(
+  "/update/:id",
+  updateAppointmentRequest,
+  appointmentsController.update
+);
 router.get("/my", appointmentsController.index);
 router.delete("/delete/:id", appointmentsController.destroy);
+router.get("/nearest", appointmentsController.nearest);
 
 router.use(userIsMechanicOrManager);
 router.use(userIsActive);
@@ -27,6 +32,6 @@ router.patch(
   appointmentsController.updateStatus
 );
 
-router.get('/all', userIsManager, appointmentsController.all);
+router.get("/all", userIsManager, appointmentsController.all);
 
 export default router;

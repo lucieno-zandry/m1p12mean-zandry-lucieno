@@ -10,10 +10,12 @@ const authenticateToken = (req, res, next) => {
 
   jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
     if (err) {
-      return res.status(403).json({ message: "Invalid or expired token" });
+      return res
+        .status(403)
+        .json({ message: "Invalid or expired token", action: "LOGIN" });
     }
 
-    const userId = decoded.userId
+    const userId = decoded.userId;
 
     const user = await prisma.user.findUnique({
       where: {
@@ -22,11 +24,13 @@ const authenticateToken = (req, res, next) => {
     });
 
     if (!user)
-      return res.status(403).json({ message: "Invalid or expired token", action: "LOGIN" });
+      return res
+        .status(403)
+        .json({ message: "Invalid or expired token", action: "LOGIN" });
 
     // Attach user to the request object
     req.user = user;
-    
+
     next();
   });
 };

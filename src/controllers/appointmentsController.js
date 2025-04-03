@@ -200,4 +200,75 @@ export default {
       res.status(500).json({ message: "Internal Server Error." });
     }
   },
+  nearest: async (req, res) => {
+    try {
+      const userId = req.user.id;
+      const userRole = req.user.role;
+
+      let appointment;
+
+      // For managers, get any nearest upcoming appointment
+      if (userRole === "MANAGER") {
+        appointment = await prisma.appointment.findFirst({
+          where: {
+            date: {
+              gte: new Date(), // Only future appointments
+            },
+          },
+          orderBy: {
+            date: "asc", // Get the nearest one first
+          },
+          include: {
+            client: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+            mechanic: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+          },
+        });
+      } else {
+        // For regular users, get only their nearest appointment
+        appointment = await prisma.appointment.findFirst({
+          where: {
+            clientId: userId,
+            date: {
+              gte: new Date(), // Only future appointments
+            },
+          },
+          orderBy: {
+            date: "asc", // Get the nearest one first
+          },
+          include: {
+            mechanic: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+          },
+        });
+      }
+
+      if (!appointment) {
+        return res
+          .status(404)
+          .json({ message: "No upcoming appointments found" });
+      }
+
+      return res.status(200).json({ appointment });
+    } catch (error) {
+      console.error("Error fetching nearest appointment:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  },
 };
