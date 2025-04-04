@@ -17,6 +17,10 @@ export const getAppointments = () => {
     return api.get<{ appointments: Appointment[] }>('/appointment/my');
 }
 
+export const getAssignedAppointments = () => {
+    return api.get<{ appointments: Appointment[] }>('/appointment/assigned');
+}
+
 export const getAllAppointments = () => {
     return api.get<{ appointments: Appointment[] }>('/appointment/all');
 }

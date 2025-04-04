@@ -20,10 +20,12 @@
                     <th class="col">Status</th>
                     <th class="col">Service</th>
                     <th>Time</th>
-                    @if (auth.user()!.role === 'MANAGER') {
+                    @if (auth.user()!.role !== 'CLIENT') {
                     <th class="col">Client Info</th>
                     }
+                    @if (auth.user()!.role !== "MECHANIC"){
                     <th class="col">Mechanic</th>
+                    }
                     <th class="col-3"></th>
                 </tr>
             </thead>
@@ -33,13 +35,15 @@
                     <td scope="row">{{appointment.status}}</td>
                     <td>{{ appointment.serviceType }}</td>
                     <td>{{ getTime(appointment.date) }}</td>
-                    @if (auth.user()!.role === 'MANAGER') {
+                    @if (auth.user()!.role !== 'CLIENT') {
                     <td>
                         {{appointment.client?.name || 'Unknown'}} <br />
                         <a [href]="`mailto:${appointment.client?.email}`">{{ appointment.client?.email }}</a>
                     </td>
                     }
+                    @if (auth.user()!.role !== "MECHANIC"){
                     <td>{{ appointment.mechanic?.name || 'Unknown' }}</td>
+                    }
 
                     <td class="d-flex gap-2">
                         @if(date(appointment.date) > now){
@@ -58,7 +62,7 @@
         </table>
     </div>
     }
-    @if(selectedDate() > now && !selectedDateIsWeekend()){
+    @if(selectedDate() > now && !selectedDateIsWeekend() && auth.user()!.role !== "MECHANIC"){
     <button class="btn btn-outline-dark btn-sm floating-action" data-bs-toggle="modal"
         data-bs-target="#appointment-modal" type="button" (click)="setEditingAppointment(null)">
         <i class="fa fa-plus"></i> Ajouter

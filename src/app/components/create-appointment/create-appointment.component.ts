@@ -70,6 +70,7 @@ export class CreateAppointmentComponent {
 
   appointmentRefreshAction() {
     if (this.auth.user()!.role === 'MANAGER') return this.appointments.refreshAllAppointments();
+    if (this.auth.user()!.role === "MECHANIC") return this.appointments.refreshAssignedAppointments();
     this.appointments.refreshAppointments();
   }
 

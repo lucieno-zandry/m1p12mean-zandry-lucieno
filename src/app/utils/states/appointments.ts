@@ -1,6 +1,6 @@
 import { Injectable, signal } from "@angular/core";
 import { Appointment } from "../types/models";
-import { getAllAppointments, getAppointments, nearestAppointment } from "../api/actions";
+import { getAllAppointments, getAppointments, getAssignedAppointments, nearestAppointment } from "../api/actions";
 import appDate from "../functions/appDate";
 
 type AppointmentsState = { [key: string]: Appointment[] | undefined }
@@ -19,6 +19,25 @@ export class Appointments {
                 this.nearestAppointment.set(null);
             })
 
+    }
+
+    refreshAssignedAppointments() {
+        getAssignedAppointments()
+            .then(response => {
+                const appointmentsValue: AppointmentsState = {};
+
+                response.appointments.forEach((appointment) => {
+                    const key = appDate.stringToIso(appointment.date);
+
+                    if (appointmentsValue[key]) {
+                        appointmentsValue[key].push(appointment);
+                    } else {
+                        appointmentsValue[key] = [appointment];
+                    }
+                })
+
+                this.appointments.update(() => appointmentsValue);
+            })
     }
 
     refreshAppointments() {

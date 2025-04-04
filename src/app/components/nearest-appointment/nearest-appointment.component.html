@@ -21,7 +21,7 @@
 @if(appointments.nearestAppointment()){
 <div class="card shadow-sm border-0 h-100">
     <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Prochain rendez-vous</h5>
+        <h5 class="mb-0">Next appointment</h5>
         <span class="badge {{ getStatusClass(appointments.nearestAppointment()!.status) }}">{{
             appointments.nearestAppointment()!.status }}</span>
     </div>
@@ -50,7 +50,7 @@
             </div>
             }
 
-            @if(appointments.nearestAppointment()!.client && auth.user()!.role === 'MANAGER'){
+            @if(appointments.nearestAppointment()!.client && auth.user()!.role !== 'CLIENT'){
             <div class="d-flex align-items-center gap-2">
                 <div>Client : </div>
                 <div class="bg-secondary rounded-circle text-white d-flex align-items-center justify-content-center"
