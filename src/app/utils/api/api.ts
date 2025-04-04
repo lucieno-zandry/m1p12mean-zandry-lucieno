@@ -1,7 +1,7 @@
 import { inject } from "@angular/core";
 import { Router } from "@angular/router";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://m1p12mean-zandry-lucieno-api.onrender.com/api";
 
 const buildUrl = (uri: string) => {
     return `${API_URL}${uri}`
