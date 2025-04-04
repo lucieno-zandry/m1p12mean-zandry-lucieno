@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalTitleId">
-                    Prendre un rendez-vous
+                    Schedule an appointment
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="create-appointment-modal-close"></button>
             </div>
@@ -13,7 +13,7 @@
                     <input type="time" class="form-control" [class.is-invalid]="validationMessages().time" name="time"
                         id="time" placeholder="Heure du rendez-vous" formControlName="time" autocomplete="time" required
                         min="08:00" max="17:00" />
-                    <label for="time"><i class="fa fa-clock"></i> Heure</label>
+                    <label for="time"><i class="fa fa-clock"></i> Time</label>
 
                     @if (validationMessages().time) {
                     <div class="invalid-feedback">
@@ -24,12 +24,13 @@
 
                 <div class="form-floating mb-3 col-10">
                     <select formControlName="service" class="form-select" name="service"  id="service" placeholder="Type de service" [class.is-invalid]="validationMessages().service">
-                        <option value="VIDANGE" selected>Vidange</option>
-                        <option value="ENTRETIEN">Entretien</option>
-                        <option value="LAVAGE">Lavage</option>
-                        <option value="REPARATION">Reparation</option>
+                        <option value="VIDANGE" selected>Oil Change</option>
+                        <option value="ENTRETIEN">Tire Rotation</option>
+                        <option value="LAVAGE">Brake Inspection</option>
+                        <option value="REPARATION">Engine Diagnostics</option>
+                        <option value="REPARATION">Full Vehicle Inspection</option>
                     </select>
-                    <label for="service"><i class="fa fa-list"></i> Type de service</label>
+                    <label for="service"><i class="fa fa-list"></i> Service</label>
 
                     @if (validationMessages().service) {
                     <div class="invalid-feedback">

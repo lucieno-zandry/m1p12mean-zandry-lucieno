@@ -56,7 +56,7 @@ export class AppointmentsComponent {
         this.deletingAppointment.set(null);
       })
       .catch((error) => {
-        alert('Impossible de supprimer le rendez-vous : ' + error.message);
+        alert('Impossible to delete appointment : ' + error.message);
       })
       .finally(() => {
         this.state.isLoading = false;

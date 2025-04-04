@@ -10,20 +10,20 @@
     }@else if(!activeAppointments()){
     <div class="text-center">
         <div class="empty-image col-1 mx-auto"></div>
-        <p class="mt-3">Aucun rendez-vous prévu pour cette date.</p>
+        <p class="mt-3">No appointment scheduled for that date.</p>
     </div>
     } @else {
     <div class="table-responsive container text-center">
         <table class="table">
             <thead>
                 <tr>
-                    <th class="col">Statut</th>
+                    <th class="col">Status</th>
                     <th class="col">Service</th>
-                    <th>Heure</th>
+                    <th>Time</th>
                     @if (auth.user()!.role === 'MANAGER') {
-                    <th class="col">Info du client</th>
+                    <th class="col">Client Info</th>
                     }
-                    <th class="col">Mécanicien</th>
+                    <th class="col">Mechanic</th>
                     <th class="col-3"></th>
                 </tr>
             </thead>
@@ -35,22 +35,22 @@
                     <td>{{ getTime(appointment.date) }}</td>
                     @if (auth.user()!.role === 'MANAGER') {
                     <td>
-                        {{appointment.client?.name || 'Inconnu'}} <br />
+                        {{appointment.client?.name || 'Unknown'}} <br />
                         <a [href]="`mailto:${appointment.client?.email}`">{{ appointment.client?.email }}</a>
                     </td>
                     }
-                    <td>{{ appointment.mechanic?.name || 'Inconnu' }}</td>
+                    <td>{{ appointment.mechanic?.name || 'Unknown' }}</td>
 
                     <td class="d-flex gap-2">
                         @if(date(appointment.date) > now){
                         <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal"
                             data-bs-target="#appointment-modal" (click)="setEditingAppointment(appointment)">
-                            <i class="fa fa-pen"></i> modifier
+                            <i class="fa fa-pen"></i> Edit
                         </button>
                         }
                         <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
                             data-bs-target="#delete-appointment-modal" (click)="deletingAppointment.set(appointment)">
-                            <i class="fa fa-trash"></i> supprimer
+                            <i class="fa fa-trash"></i> Delete
                         </button>
                     </td>
                 </tr>}

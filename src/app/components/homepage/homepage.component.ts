@@ -12,11 +12,11 @@ export class HomepageComponent {
   auth = inject(Auth);
   isSubmitted = false;
   services = [
-    { id: 1, name: 'Oil Change', duration: '30 min', price: '$45' },
-    { id: 2, name: 'Tire Rotation', duration: '45 min', price: '$35' },
-    { id: 3, name: 'Brake Inspection', duration: '1 hour', price: '$75' },
-    { id: 4, name: 'Engine Diagnostics', duration: '1 hour', price: '$120' },
-    { id: 5, name: 'Full Vehicle Inspection', duration: '2 hours', price: '$150' }
+    { id: 1, name: 'Oil Change', duration: '30 min', price: '45.000 MGA' },
+    { id: 2, name: 'Tire Rotation', duration: '45 min', price: '35.000 MGA' },
+    { id: 3, name: 'Brake Inspection', duration: '1 hour', price: '75.000 MGA' },
+    { id: 4, name: 'Engine Diagnostics', duration: '1 hour', price: '120.000 MGA' },
+    { id: 5, name: 'Full Vehicle Inspection', duration: '2 hours', price: '150.000 MGA' }
   ];
   
   testimonials = [

@@ -20,7 +20,7 @@ const getActionUrl = (action: string): string | null => {
         return '/auth/login';
     }
 
-    if (action === 'ACTIVATE') {
+    if (action === 'ACTIVATION') {
         return '/auth/pending';
     }
 

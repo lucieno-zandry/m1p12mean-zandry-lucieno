@@ -76,9 +76,9 @@ export class CreateAppointmentComponent {
   getValidationMessages = () => {
     const errors: AppointmentValidationMessages = {};
     if (this.time?.hasError('required')) {
-      errors['time'] = "Veuillez préciser l'heure!"
+      errors['time'] = "Please, provide a time!"
     } else if (this.time?.hasError('workHour')) {
-      errors['time'] = "Les heures d'ouvertures sont entre 08:00 et 17:00."
+      errors['time'] = "Open hours are between 8:00 AM and 6:00PM"
     }
 
     if (this.service?.hasError('required')) {

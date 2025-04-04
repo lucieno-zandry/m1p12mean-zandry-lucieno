@@ -4,16 +4,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="delete-appointment-modal-title">
-                    Êtes-vous sûr de supprimer ce rendez-vous ?
+                    Do you want to delete that appointment?
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="appointment-delete-modal-close"></button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
-                    annuler
+                    Cancel
                 </button>
                 <app-button variant="danger" type="button" className="btn-sm" [isLoading]="isLoading()" (click)="onDelete.emit()">
-                    <i class="fa fa-trash"></i> Supprimer
+                    <i class="fa fa-trash"></i> Delete
                 </app-button>
             </div>
         </div>

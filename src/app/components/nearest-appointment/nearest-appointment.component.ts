@@ -19,7 +19,7 @@ export class NearestAppointmentComponent {
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
-    return date.toLocaleDateString('fr-FR', { 
+    return date.toLocaleDateString('en-EN', { 
       weekday: 'long', 
       month: 'long', 
       day: 'numeric',
