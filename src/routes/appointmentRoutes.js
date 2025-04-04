@@ -25,7 +25,7 @@ router.get("/nearest", appointmentsController.nearest);
 router.use(userIsMechanicOrManager);
 router.use(userIsActive);
 
-router.get("/assigned", appointmentsController.index);
+router.get("/assigned", appointmentsController.assigned);
 router.patch(
   "/:id/status",
   appointmentStatusChangeRequest,

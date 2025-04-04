@@ -235,7 +235,7 @@ export default {
             },
           },
         });
-      } else {
+      } else if(userRole === "CLIENT") {
         // For regular users, get only their nearest appointment
         appointment = await prisma.appointment.findFirst({
           where: {
@@ -249,6 +249,27 @@ export default {
           },
           include: {
             mechanic: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+          },
+        });
+      } else {
+        appointment = await prisma.appointment.findFirst({
+          where: {
+            mechanicId: userId,
+            date: {
+              gte: new Date(), // Only future appointments
+            },
+          },
+          orderBy: {
+            date: "asc", // Get the nearest one first
+          },
+          include: {
+            client: {
               select: {
                 id: true,
                 name: true,
